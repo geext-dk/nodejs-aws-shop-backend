@@ -1,0 +1,127 @@
+openapi: "3.0.1"
+info:
+  version: "1.0.0"
+  title: "Products Service API"
+  description: This service serves products
+paths:
+  /products:
+    get:
+      summary: Get all products
+      operationId: getProductsList
+      tags:
+        - Products
+      responses:
+        200:
+          description: Successfully returned all products
+          content:
+            application/json:
+              schema:
+                description: An array of products
+                type: array
+                items:
+                  $ref: "#/components/schemas/Product"
+        500:
+          $ref: '#/components/responses/InternalServerError'
+      x-amazon-apigateway-integration:
+        uri:
+          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${GetProductsListLambda.Arn}/invocations"
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+        type: "aws_proxy"
+        credentials: "${ApiRole.Arn}"
+  /products/{productId}:
+    parameters:
+      - $ref: "#/components/parameters/productIdParam"
+    get:
+      summary: Get a single product by its ID
+      operationId: getProductsById
+      tags:
+        - Products
+      responses:
+        200:
+          description: Successfully found and returned a product
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Product"
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+      x-amazon-apigateway-integration:
+        uri:
+          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${GetProductsByIdLambda.Arn}/invocations"
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+        type: "aws_proxy"
+        credentials: "${ApiRole.Arn}"
+components:
+  schemas:
+    ProductId:
+      description: A product identifier
+      type: string
+      readOnly: true
+    ProductTitle:
+      description: A product's title
+      type: string
+      default: ""
+    ProductDescription:
+      description: A product's description
+      type: string
+      default: ""
+    ProductPrice:
+      description: A product's price
+      type: number
+      default: 0
+      minimum: 0
+    ProductCount:
+      description: Number of products available
+      type: number
+      minimum: 0
+    Product:
+      description: A single product
+      type: object
+      required:
+        - id
+        - title
+        - price
+      properties:
+        id:
+          $ref: "#/components/schemas/ProductId"
+        title:
+          $ref: "#/components/schemas/ProductTitle"
+        description:
+          $ref: "#/components/schemas/ProductDescription"
+        price:
+          $ref: "#/components/schemas/ProductPrice"
+        count:
+          $ref: "#/components/schemas/ProductCount"
+    Error:
+      type: object
+      required:
+        - message
+      properties:
+        message:
+          description: A human readable error message
+          type: string
+  parameters:
+    productIdParam:
+      name: productId
+      description: The unique identifier of the product
+      in: path
+      required: true
+      schema:
+        $ref: "#/components/schemas/ProductId"
+  responses:
+    NotFound:
+      description: The requested resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+    InternalServerError:
+      description: Unexpected error
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
