@@ -1,7 +1,7 @@
-import { Handler } from "aws-lambda";
+import { APIGatewayProxyHandler } from "aws-lambda";
 import getProductsList from "../../src/products/get-products-list";
 
-export const handler: Handler = async () => {
+export const handler: APIGatewayProxyHandler = async () => {
   const products = await getProductsList();
 
   return {
