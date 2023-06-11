@@ -1,14 +1,15 @@
 import { APIGatewayProxyHandler } from "aws-lambda";
 import getProductsList from "../../src/products/get-products-list";
+import createResponse, { createExceptionResponse } from "./models/create-response";
 
 export const handler: APIGatewayProxyHandler = async () => {
-  const products = await getProductsList();
+  console.log("Executing getProductsList");
 
-  return {
-    statusCode: 200,
-    headers: {
-      "Access-Control-Allow-Origin": "*",
-    },
-    body: JSON.stringify(products),
-  };
+  try {
+    const products = await getProductsList();
+
+    return createResponse(200, products);
+  } catch (e) {
+    return createExceptionResponse(e);
+  }
 };

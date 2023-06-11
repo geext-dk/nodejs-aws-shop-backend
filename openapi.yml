@@ -29,6 +29,29 @@ paths:
         httpMethod: "POST"
         type: "aws_proxy"
         credentials: "${ApiRole.Arn}"
+    post:
+      summary: Create a product
+      operationId: createProduct
+      tags:
+        - Products
+      responses:
+        200:
+          description: Successfully created a product
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Product"
+        400:
+          $ref: '#/components/responses/BadRequest'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+      x-amazon-apigateway-integration:
+        uri:
+          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${GetProductsListLambda.Arn}/invocations"
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+        type: "aws_proxy"
+        credentials: "${ApiRole.Arn}"
   /products/{productId}:
     parameters:
       - $ref: "#/components/parameters/productIdParam"
@@ -99,11 +122,17 @@ components:
     Error:
       type: object
       required:
-        - message
+        - errorMessage
       properties:
-        message:
+        errorMessage:
           description: A human readable error message
           type: string
+        errors:
+          description: A list of errors
+          type: array
+          items:
+            type: object
+            additionalProperties: true
   parameters:
     productIdParam:
       name: productId
@@ -115,6 +144,12 @@ components:
   responses:
     NotFound:
       description: The requested resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+    BadRequest:
+      description: The request was not valid
       content:
         application/json:
           schema:
