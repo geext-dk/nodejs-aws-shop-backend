@@ -1,0 +1,132 @@
+{
+  "products": [
+    {
+      "PutRequest": {
+        "Item": {
+          "id": {"S": "f7c2e613-a5d7-4e7a-99e8-8a0313dfd3c0"},
+          "title": {"S": "Burek"},
+          "description": {"S": "Delicious pastry from Balkans. It is made of dough and filled with meat, cheese or spinach."},
+          "price": {"N": "1.5"}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item":{
+          "id": {"S": "fbd276c0-83c3-44c7-bb8e-35ee021d361a"},
+          "title": {"S": "Ćevapi"},
+          "description": {"S": "Ćevapi is a grilled dish of minced meat, a type of skinless sausage, found traditionally in the countries of southeastern Europe (the Balkans)."},
+          "price": {"N": "2"}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "id": {"S": "e752a479-7f43-4468-a3dc-70b4a8eeaa4a"},
+          "title": {"S": "Pljeskavica"},
+          "description": {"S": "Pljeskavica is a grilled dish of spiced meat patty mixture of pork, beef and lamb, served with onions, kajmak, ajvar, and urnebes, a type of salad."},
+          "price": {"N": "2.5"}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "id": {"S": "1fe9921b-d0b9-4a14-a18e-035c077075c7"},
+          "title": {"S": "Chicken in mushroom sauce"},
+          "description": {"S": "Chicken in mushroom sauce is a dish consisting of chicken pieces braised with mushrooms and served in a creamy sauce."},
+          "price": {"N": "7"}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "id": {"S": "864f84e3-2c3b-4cdb-9396-7b8fd6ce6f2f"},
+          "title": {"S": "Rakija"},
+          "description": {"S": "Rakija is the collective term for fruit brandy popular in the Balkans. The alcohol content of rakia is normally 40% ABV, but home-produced rakia can be stronger (typically 50% to 80%, even going as high as 90% at times)."},
+          "price": {"N": "1"}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "id": {"S": "f99ca04d-d8cf-4b23-8107-5f05b2434b53"},
+          "title": {"S": "Pita"},
+          "description": {"S": "Pita is a family of baked or fried filled pastries made with a thin, flaky dough known as phyllo (or yufka)."},
+          "price": {"N": "1.5"}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "id": {"S": "c9a5eae0-3fc3-4372-b753-251c493e6c3a"},
+          "title": {"S": "Čorba"},
+          "description": {"S": "Čorba is a variety of soup or stew found in regional cuisines of the Balkans, Central Europe, Eastern Europe, Caucasus, Central Asia and Middle East."},
+          "price": {"N": "2.5"}
+        }
+      }
+    }
+  ],
+  "stocks": [
+    {
+      "PutRequest": {
+        "Item": {
+          "product_id": {"S": "f7c2e613-a5d7-4e7a-99e8-8a0313dfd3c0"},
+          "count": {"N": "100"}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "product_id": {"S": "fbd276c0-83c3-44c7-bb8e-35ee021d361a"},
+          "count": {"N": "100"}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "product_id": {"S": "e752a479-7f43-4468-a3dc-70b4a8eeaa4a"},
+          "count": {"N": "100"}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "product_id": {"S": "1fe9921b-d0b9-4a14-a18e-035c077075c7"},
+          "count": {"N": "100"}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "product_id": {"S": "864f84e3-2c3b-4cdb-9396-7b8fd6ce6f2f"},
+          "count": {"N": "100"}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "product_id": {"S": "f99ca04d-d8cf-4b23-8107-5f05b2434b53"},
+          "count": {"N": "100"}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "product_id": {"S": "c9a5eae0-3fc3-4372-b753-251c493e6c3a"},
+          "count": {"N": "100"}
+        }
+      }
+    }
+  ]
+}
